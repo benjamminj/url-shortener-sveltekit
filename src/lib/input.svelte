@@ -10,8 +10,7 @@
 		<input
 			class={clsx(
 				'peer w-full rounded-none border-2 p-2 pt-6 focus:outline-none border-slate-700 focus:border-black dark:border-white dark:bg-transparent focus:dark:border-white',
-				error && 'border-red-700 bg-red-100 dark:border-red-700',
-				'read-only:border-slate-600 read-only:focus:border-slate-600'
+				error && 'border-red-700 bg-red-100 dark:border-red-700'
 			)}
 			placeholder=" "
 			{...$$props}
@@ -29,4 +28,8 @@
 </div>
 
 <style>
+	input:read-only,
+	input:read-only:focus {
+		@apply bg-gray-800 border-gray-800 bg-opacity-70;
+	}
 </style>

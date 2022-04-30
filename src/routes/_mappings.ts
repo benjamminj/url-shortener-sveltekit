@@ -43,7 +43,6 @@ export const getDefAttributes = (
 	}
 
 	for (const check of checks) {
-		console.log(check);
 		if (check.kind === 'url') {
 			attributes.type = 'url';
 		}

@@ -33,7 +33,15 @@ export const post: RequestHandler = async ({ request }) => {
 			const mapping = EditPayload.parse({ slug, url, id });
 
 			return {
-				status: 200,
+				// a 2xx status code causes SvelteKit to rerender the component and will
+				// NOT include the data from the response body.
+				//
+				// An alternative is to embed the updated form data in the URL, but that
+				// can get nasty.
+				//
+				// Since 300 doesn't carry strict semantics (the choice is left up to the
+				// client), it's a little more fitting than the other 3xx codes.
+				status: 300,
 				body: {
 					form: {
 						editable: mapping.slug
@@ -44,8 +52,8 @@ export const post: RequestHandler = async ({ request }) => {
 
 		if (intent === 'update') {
 			const mapping = EditPayload.parse({ slug, url, id });
-			// if (typeof id !== 'string') throw new Error('No id provided');
 			await updateMapping(mapping);
+
 			return {
 				status: 200,
 				body: {

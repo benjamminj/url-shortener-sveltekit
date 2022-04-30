@@ -73,8 +73,6 @@ export function enhance(
 			data.append(submitter.name, submitter.value);
 		}
 
-		data.append('__hasClientJs__', 'true');
-
 		if (pending) pending({ data, form });
 
 		try {

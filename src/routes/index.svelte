@@ -1,13 +1,14 @@
 <script lang="ts">
+	import { browser } from '$app/env';
 	import { enhance } from '$lib/form';
 	import Input from '$lib/input.svelte';
-	import { ColorPreference } from './color-preference';
 	import { getMappingSchemaHtmlAttributes, Mapping } from './_mappings';
 
 	// TODO: types??
 	export let data: any;
-	export let form: any = null;
+	export let form: any = undefined;
 
+	$: console.log(form, data);
 	// TODO: preprocess this instead of generating at runtime??
 	const validations = getMappingSchemaHtmlAttributes();
 </script>
@@ -23,8 +24,14 @@
 					class="flex"
 					method="post"
 					use:enhance={{
+						pending: () => {
+							if (readonly) {
+								form = { editable: mapping.slug };
+							}
+						},
 						result: async ({ response }) => {
 							const json = await response?.json();
+							console.log('>>', json.form);
 							form = json.form;
 						}
 					}}
