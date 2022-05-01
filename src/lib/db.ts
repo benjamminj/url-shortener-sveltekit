@@ -4,10 +4,37 @@ type Mapping = { slug: string; url: string; id: number };
 
 const mappings: Record<string, Mapping> = {};
 
-// const get = async ({key: string, platform}) => {
-// 	if (dev) return mappings[key];
-// 	return KV_MAPPINGS;
-// };
+export const db = (namespace: KVNamespace): KVNamespace => {
+	if (dev) {
+		const get = async (key: string) => JSON.stringify(mappings[key]);
+		const getWithMetadata = async (key: string) => ({
+			value: JSON.stringify(mappings[key]),
+			metadata: null
+		});
+		const put = async (key: string, value: string) => {
+			mappings[key] = JSON.parse(value);
+		};
+		const del = async (key: string) => {
+			delete mappings[key];
+		};
+		const list = async () => {
+			return {
+				keys: Object.keys(mappings).map((name) => ({ name })),
+				list_complete: true,
+				cursor: ''
+			};
+		};
+		return {
+			list: list as KVNamespace['list'],
+			get: get as KVNamespace['get'],
+			getWithMetadata: getWithMetadata as KVNamespace['getWithMetadata'],
+			put: put as KVNamespace['put'],
+			delete: del as KVNamespace['delete']
+		};
+	}
+
+	return namespace;
+};
 
 export const getMappings = async (): Promise<Mapping[]> => {
 	return Object.values(mappings);

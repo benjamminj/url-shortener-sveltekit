@@ -1,11 +1,12 @@
-import { addMapping, getMappings, updateMapping } from '$lib/db';
+import { addMapping, db, getMappings, updateMapping } from '$lib/db';
 import type { RequestHandler } from '@sveltejs/kit';
 import { ZodError } from 'zod';
 import { Mapping } from './_mappings';
 
 export const get: RequestHandler = async ({ platform }) => {
-	console.log('>>');
-	const list = await platform.env.KV_MAPPINGS.list();
+	// console.log('>>');
+	const list = await db(platform?.env?.KV_MAPPINGS).list();
+	// const list = await platform.env.KV_MAPPINGS.list();
 	const mappings = await getMappings();
 	return {
 		status: 200,
