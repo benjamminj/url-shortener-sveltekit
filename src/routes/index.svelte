@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import { enhance } from '$lib/form';
 	import Input from '$lib/input.svelte';
-	import { getMappingSchemaHtmlAttributes, Mapping } from './_mappings';
+	import { getMappingSchemaHtmlAttributes } from './_mappings';
 
 	// TODO: types??
 	export let data: any;

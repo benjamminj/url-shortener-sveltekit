@@ -1,12 +1,13 @@
+import { dev } from '$app/env';
+
 type Mapping = { slug: string; url: string; id: number };
 
-const mappings: Record<string, Mapping> = {
-	1: {
-		id: 1,
-		slug: 'test',
-		url: 'https://test.com'
-	}
-};
+const mappings: Record<string, Mapping> = {};
+
+// const get = async ({key: string, platform}) => {
+// 	if (dev) return mappings[key];
+// 	return KV_MAPPINGS;
+// };
 
 export const getMappings = async (): Promise<Mapping[]> => {
 	return Object.values(mappings);

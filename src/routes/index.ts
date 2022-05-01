@@ -3,12 +3,15 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { ZodError } from 'zod';
 import { Mapping } from './_mappings';
 
-export const get: RequestHandler = async () => {
+export const get: RequestHandler = async ({ platform }) => {
+	console.log('>>');
+	const list = await platform.env.KV_MAPPINGS.list();
 	const mappings = await getMappings();
 	return {
 		status: 200,
 		body: {
 			data: {
+				list,
 				mappings
 			}
 		}

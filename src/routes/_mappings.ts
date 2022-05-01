@@ -1,4 +1,5 @@
-import { z, ZodEffects, type ZodEffectsDef, type ZodOptionalDef, type ZodStringDef } from 'zod';
+import { z } from 'zod';
+import type { ZodEffectsDef, ZodOptionalDef, ZodStringDef } from 'zod';
 
 export const Mapping = z.object({
 	id: z.preprocess((x) => Number(x), z.number().nonnegative()),
