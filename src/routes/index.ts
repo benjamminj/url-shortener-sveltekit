@@ -5,6 +5,7 @@ import { Mapping } from './_mappings';
 
 export const get: RequestHandler = async ({ platform }) => {
 	// console.log('>>');
+	// TODO: refactor to use this instead of mappings directly
 	const list = await db(platform?.env?.KV_MAPPINGS).list();
 	// const list = await platform.env.KV_MAPPINGS.list();
 	const mappings = await getMappings();
